@@ -9,11 +9,11 @@ try:
     
     my_cursor = connection.cursor()
 
-    tabelle = """CREATE TABLE IF NOT EXIST Klassenkamerad(
+    tabelle = '''CREATE TABLE IF NOT EXISTS Klassenkamerad(
                         id          int PRIMARY KEY,
                         Name        varchar(40) NOT NULL,
                         Nachname    varchar(40) NOT NULL,
-                        Jahrgang    int)"""
+                        Jahrgang    int)'''
     
     my_cursor.execute(tabelle)
 
