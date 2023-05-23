@@ -1,8 +1,8 @@
-#import mysql
-#import mysql.connector
 import psycopg2
+
 connection = None
 my_cursor = None
+
 try:
     connection = psycopg2.connect(host = "horton.db.elephantsql.com", user = "gmldbqwd", 
                                   password = "n4BFSabvT1NE-0fvDKjFD27lea1Z2uBU", dbname = "gmldbqwd")
