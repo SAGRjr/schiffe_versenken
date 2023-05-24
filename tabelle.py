@@ -9,13 +9,17 @@ try:
     
     my_cursor = connection.cursor()
 
-    tabelle = '''CREATE TABLE IF NOT EXISTS Klassenkamerad(
+    insert_tabelle = '''CREATE TABLE IF NOT EXISTS Klassenkamerad(
                         id          int PRIMARY KEY,
-                        Name        varchar(40) NOT NULL,
-                        Nachname    varchar(40) NOT NULL,
-                        Jahrgang    int)'''
-    
-    my_cursor.execute(tabelle)
+                        name        varchar(40) NOT NULL,
+                        nachname    varchar(40)) '''
+
+    my_cursor.execute(insert_tabelle)
+
+    insert_tabelle = "INSERT INTO Klassenkamerad (id, Name, Nachname. Jahrgang) VALUES (%s,%s,%s)"
+    insert_value = (1,"Nikta", "Chair")
+
+    my_cursor.execute(insert_tabelle, insert_value)
 
     connection.commit()
 
