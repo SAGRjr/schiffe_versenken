@@ -10,18 +10,43 @@ try:
     my_cursor = connection.cursor()
 
     insert_tabelle = '''CREATE TABLE IF NOT EXISTS Klassenkamerad(
-                        id          int PRIMARY KEY,
-                        name        varchar(40) NOT NULL,
-                        nachname    varchar(40)) '''
+                        ID          SERIAL PRIMARY KEY,
+                        Login       varchar(40) UNIQUE,
+                        Password    varchar(120) NOT NULL,
+                        Name        varchar(40) DEFAULT '' NOT NULL,
+                        Nachname    varchar(40) DEFAULT '' NOT NULL,
+                        Games       INTEGER DEFAULT 0 NOT NULL,
+                        Mistakes    INTEGER DEFAULT 0 NOT NULL
+                        ) 
+                    '''
 
     my_cursor.execute(insert_tabelle)
 
-    insert_tabelle = "INSERT INTO Klassenkamerad (id, Name, Nachname. Jahrgang) VALUES (%s,%s,%s)"
-    insert_value = (1,"Nikta", "Chair")
+    insert_tabelle = '''CREATE TABLE IF NOT EXISTS Words(
+                        ID          SERIAL PRIMARY KEY,
+                        Word           varchar(40) UNIQUE,
+                        UserCreated    varchar(40) DEFAULT '' NOT NULL
+                        ) 
+                    '''
+    my_cursor.execute(insert_tabelle)
 
+
+    #insert_tabelle = "INSERT INTO Klassenkamerad (Login, Password, Name, Nachname) VALUES (%s,%s,%s,%s)"
+    #insert_value = ("DestyTM", "my_pass","Nikita","Stuhl")
+    #my_cursor.execute(insert_tabelle, insert_value)
+    #insert_value = ("SAGRjr", "my_pass1","Andreas","Chaidaridis")
+    #my_cursor.execute(insert_tabelle, insert_value)
+
+    insert_tabelle = "INSERT INTO Words (Word, UserCreated) VALUES (%s,%s)"
+    insert_value = ("Informatik", "DestyTM")
+    my_cursor.execute(insert_tabelle, insert_value)
+    insert_value = ("Schach", "SAGRjr")
     my_cursor.execute(insert_tabelle, insert_value)
 
     connection.commit()
+
+
+
 
     
 except Exception as error:
