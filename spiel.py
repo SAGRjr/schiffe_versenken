@@ -23,12 +23,7 @@ def check_table_contents(result):
     #result = my_cursor.fetchone()
     bLoginOK = False
     # if count(*) > 0 --> user can go on - else exit the program...
-    if result[0] > 0:
-        print("Eintrag gefunden.")
-        bLoginOK = True
-    else:
-        bLoginOK = False
-        print("Kein Eintrag vorhanden.")
+   
 
     # wenn result >0... dann bLoginOK = True
  
@@ -52,11 +47,19 @@ def main():
             passwd_entr1 = input("Enter a password: ")
         
         sSelect = "SELECT COUNT(*) from Klassenkamerad where Login='" + login_data + "' and Password='" + passwd_entr + "'" 
-        print(sSelect)
         my_cursor.execute(sSelect)
         result = my_cursor.fetchone()
         bLoginOK = check_table_contents(result)
         print(str(result))
+
+
+        if result[0] > 0:
+            print("Eintrag gefunden.")
+            print("Willkommen " + login_data + ", schön Sie zu sehen.")
+            bLoginOK = True
+        else:
+            bLoginOK = False
+            print("Kein Eintrag vorhanden.")
         
             
 
