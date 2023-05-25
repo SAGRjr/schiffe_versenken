@@ -16,6 +16,7 @@ try:
                         Name        varchar(40) DEFAULT '' NOT NULL,
                         Nachname    varchar(40) DEFAULT '' NOT NULL,
                         Games       INTEGER DEFAULT 0 NOT NULL,
+                        Wins        INTEGER DEFAULT 0 NOT NULL,
                         Mistakes    INTEGER DEFAULT 0 NOT NULL
                         ) 
                     '''
