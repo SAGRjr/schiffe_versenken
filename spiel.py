@@ -1,5 +1,6 @@
 import psycopg2
-
+import os
+import sys
 
 
 def getConnection():
@@ -39,18 +40,25 @@ def main():
     # get connection to the DB
     connection, my_cursor = getConnection()
     if my_cursor:
-        login_data = input("Enter your username: ")
-         #ask user to put his password
-        passwd_entr = input("Enter your password: ")
+        input_option = input("Do you want to log in (1) or register (2)? ")
 
+        if input_option == "1":
+            login_data = input("Enter your username: ")
+             #ask user to put his password
+            passwd_entr = input("Enter your password: ")
+        elif input_option == "2":
+            login_data1 = input("Enter a username: ")
+             #ask user to put his password
+            passwd_entr1 = input("Enter a password: ")
+        
         sSelect = "SELECT COUNT(*) from Klassenkamerad where Login='" + login_data + "' and Password='" + passwd_entr + "'" 
         print(sSelect)
         my_cursor.execute(sSelect)
         result = my_cursor.fetchone()
         bLoginOK = check_table_contents(result)
         print(str(result))
-        if bLoginOK == True:
-            input_option = input("Do you want to register (1) or play (2)?")
+        
+            
 
 
     else:
