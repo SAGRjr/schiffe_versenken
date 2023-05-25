@@ -80,8 +80,7 @@ def main():
                             new_pass1 = input("Please repeat your new password --> ")
                             if new_pass == new_pass1:
                                 print("Your password has been changed from ", '"',password_old,'"',  ' to ', '"',new_pass, '"')
-                                insert_tabelle = f"UPDATE Klassenkamerad SET Password = '{new_pass1}' WHERE login = '{login_data}'"
-                                print(insert_tabelle)
+                                insert_tabelle = f"UPDATE Klassenkamerad SET Password = '{new_pass1}' WHERE Login = '{login_data}'"
 
                                 my_cursor.execute(insert_tabelle)
                                 connection.commit()
@@ -92,11 +91,10 @@ def main():
                     del_acc = input("Are you sure you want to delete your account and your entire information? Proceed and close (y) or No and head back (n): ")
                     if del_acc == "y":
                         reqst = input("Please enter your username --> ")
-                        reqst1 = input("Please enter youe password --> ")
+                        reqst1 = input("Please enter your password --> ")
                         if reqst == login_data and reqst1 == passwd_entr:
-                            insert_tabelle = "DELETE FROM Klassenkamerad WHERE login '%s'"
-                            insert_value(login_data)
-                            my_cursor.execute(insert_tabelle,insert_value)
+                            insert_tabelle = f"DELETE FROM Klassenkamerad WHERE Login = '{login_data}'"
+                            my_cursor.execute(insert_tabelle)
                             connection.commit()
 
             else:
