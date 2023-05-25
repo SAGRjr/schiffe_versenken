@@ -59,13 +59,32 @@ def main():
                 input_option1 = input("Do you want to play (1), add a word (2), change your password (3), change your username (4), change your name (5), change your surname (6) or delete your account (7)? ")
                 if input_option1 == "1":
                     print("ok")
-                elif input_option1 == "2":
+                elif input_option1 == "2" :
                     decision1 = input("You've decided to add a word, is that correct? Yes (y) or No (n): ")
-                    if decision1 == "y" or "Y":
+                    if decision1 == "y":
                         word_entr = input("Please enter your new word here --> ")
-                    elif input_option
+                        insert_tabelle = "INSERT INTO Words (Word, UserCreated) VALUES (%s,%s)"
+                        insert_value = (word_entr, login_data)
+                        my_cursor.execute(insert_tabelle, insert_value)
+
+                        connection.commit()
+                    else:
+                        print("Bruv")
+
                 elif input_option1 == "3":
-                    print("Why would you want to do that bruv")
+                    decision2 = input("You've chosen to change your password. Is that correct? Yes (y) or No (n): ")
+                    if decision2 == "y":
+                        password_old = input("In order to proceed, please enter your old password here --> ")
+                        if password_old == passwd_entr:
+                            new_pass = input("Please set your new password here --> ")
+                            new_pass1 = input("Please repeat your new password --> ")
+                            if new_pass == new_pass1:
+                                print("Your password has been changed from ", '"',password_old,'"',  ' to ', '"',new_pass, '"')
+                                insert_tabelle = f"UPDATE Klassenkamerad SET Password = '{new_pass1}' WHERE login = '{login_data}'"
+                                print(insert_tabelle)
+
+                                my_cursor.execute(insert_tabelle)
+                                connection.commit()
                 elif input_option1 == "4":
                     print("What is that supposed to mean mate?")
                 elif input_option1 == "5":
