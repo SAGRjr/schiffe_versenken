@@ -69,7 +69,7 @@ def main():
 
                         connection.commit()                     
                     else:
-                        print("Bruv")
+                        print("Bruh")
 
                 elif input_option1 == "3":
                     decision2 = input("You've chosen to change your password. Is that correct? Yes (y) or No (n): ")
