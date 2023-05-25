@@ -1,6 +1,9 @@
 import psycopg2
 import os
 import sys
+import time
+import random
+
 
 
 def getConnection():
@@ -36,30 +39,68 @@ def main():
     connection, my_cursor = getConnection()
     if my_cursor:
         input_option = input("Do you want to log in (1) or register (2)? ")
+        
 
         if input_option == "1":
+            
             login_data = input("Enter your username: ")
              #ask user to put his password
             passwd_entr = input("Enter your password: ")
+
+            sSelect = "SELECT COUNT(*) from Klassenkamerad where Login='" + login_data + "' and Password='" + passwd_entr + "'" 
+            my_cursor.execute(sSelect)
+            result = my_cursor.fetchone()
+            bLoginOK = check_table_contents(result)
+            if result[0] > 0:
+                print("Entry found.")
+                print("Welcome " + login_data + ", nice to see you. 😊")
+                bLoginOK = True
+
+                input_option1 = input("Do you want to play (1), add a word (2), change your password (3), change your username (4), change your name (5), change your surname (6) or delete your account (7)? ")
+                if input_option1 == "1":
+                    print("ok")
+                elif input_option1 == "2":
+                    decision1 = input("You've decided to add a word, is that correct? Yes (y) or No (n): ")
+                    if decision1 == "y" or "Y":
+                        word_entr = input("Please enter your new word here --> ")
+                    elif input_option
+                elif input_option1 == "3":
+                    print("Why would you want to do that bruv")
+                elif input_option1 == "4":
+                    print("What is that supposed to mean mate?")
+                elif input_option1 == "5":
+                    print("Ok then give me your birth certificate")
+                elif input_option1 == "6":
+                    print("No you can't do that")
+                elif input_option1 == "7":
+                    print("Aight bet")
+
+            else:
+                bLoginOK = False
+                print("No entry found 💀💀💀")
+            
+            
+
+
         elif input_option == "2":
-            login_data1 = input("Enter a username: ")
+            login_data1 = input("Please set a username: ")
              #ask user to put his password
-            passwd_entr1 = input("Enter a password: ")
+            passwd_entr1 = input("Please set a password: ")
+
+            name_entr1 = input("Please enter your name: ")
+
+            surname_entr1 = input("Please enter your surname: ")
+
+            insert_tabelle = "INSERT INTO Klassenkamerad (Login, Password, Name, Nachname) VALUES (%s,%s,%s,%s)"
+            insert_value = (login_data1, passwd_entr1,name_entr1,surname_entr1)
+            my_cursor.execute(insert_tabelle, insert_value)
+            connection.commit()
         
-        sSelect = "SELECT COUNT(*) from Klassenkamerad where Login='" + login_data + "' and Password='" + passwd_entr + "'" 
-        my_cursor.execute(sSelect)
-        result = my_cursor.fetchone()
-        bLoginOK = check_table_contents(result)
-        print(str(result))
+        
 
 
-        if result[0] > 0:
-            print("Eintrag gefunden.")
-            print("Willkommen " + login_data + ", schön Sie zu sehen.")
-            bLoginOK = True
-        else:
-            bLoginOK = False
-            print("Kein Eintrag vorhanden.")
+
+        
         
             
 
