@@ -56,7 +56,7 @@ def main():
                 print("Welcome " + login_data + ", nice to see you. 😊")
                 bLoginOK = True
 
-                input_option1 = input("Do you want to play (1), add a word (2), change your password (3), change your username (4), change your name (5), change your surname (6) or delete your account (7)? ")
+                input_option1 = input("Do you want to play (1), add a word (2), change your password (3), change your username (4) or delete your account (5)? ")
                 if input_option1 == "1":
                     print("ok")
                 elif input_option1 == "2" :
@@ -67,7 +67,7 @@ def main():
                         insert_value = (word_entr, login_data)
                         my_cursor.execute(insert_tabelle, insert_value)
 
-                        connection.commit()
+                        connection.commit()                     
                     else:
                         print("Bruv")
 
@@ -87,12 +87,17 @@ def main():
                                 connection.commit()
                 elif input_option1 == "4":
                     print("What is that supposed to mean mate?")
+
                 elif input_option1 == "5":
-                    print("Ok then give me your birth certificate")
-                elif input_option1 == "6":
-                    print("No you can't do that")
-                elif input_option1 == "7":
-                    print("Aight bet")
+                    del_acc = input("Are you sure you want to delete your account and your entire information? Proceed and close (y) or No and head back (n): ")
+                    if del_acc == "y":
+                        reqst = input("Please enter your username --> ")
+                        reqst1 = input("Please enter youe password --> ")
+                        if reqst == login_data and reqst1 == passwd_entr:
+                            insert_tabelle = "DELETE FROM Klassenkamerad WHERE login '%s'"
+                            insert_value(login_data)
+                            my_cursor.execute(insert_tabelle,insert_value)
+                            connection.commit()
 
             else:
                 bLoginOK = False

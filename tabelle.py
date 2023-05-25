@@ -9,7 +9,7 @@ try:
     
     my_cursor = connection.cursor()
 
-    insert_tabelle = '''CREATE TABLE IF NOT EXISTS Klassenkamerad(
+    insert_tabelle = '''CREATE ROW IF NOT EXISTS Klassenkamerad(
                         ID          SERIAL PRIMARY KEY,
                         Login       varchar(40) UNIQUE,
                         Password    varchar(120) NOT NULL,
