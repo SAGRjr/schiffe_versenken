@@ -56,30 +56,48 @@ def main():
                 print("Welcome " + login_data + ", nice to see you. ")
                 bLoginOK = True
 
-                input_option1 = input("Do you want to play (1), add a word (2), change your password (3), change your username (4) or delete your account (5)? ")
+                input_option1 = input("Do you want to play (1), add/delete/review words (2), change your password (3), change your username (4) or delete your account (5)? ")
 
                 if input_option1 == "1":
                     decision4 = input("You've chosen to play. Proceed (y/n) ")
-                    if decision4 == "y" or "Y":
+                    if decision4 == "y":
                         print("Nothing here yet 💀")
-                    elif decision4 == "n" or "N":
+                    elif decision4 == "n":
                         print("Nothing here either 👿")
 
                 elif input_option1 == "2":
-                    decision1 = input("You've decided to add a word, is that correct? (y/n): ")
-                    if decision1 == "y" or "Y":
-                        word_entr = input("Please enter your new word here --> ")
-                        insert_tabelle = "INSERT INTO Words (Word, UserCreated) VALUES (%s,%s)"
-                        insert_value = (word_entr, login_data)
-                        my_cursor.execute(insert_tabelle, insert_value)
+                    dcsn = input("Would you like to add (1), delete (2) or just review (3) words? ")
+                    if dcsn == "1":
+                        decision1 = input("You've decided to add a word, is that correct? (y/n): ")
+                        if decision1 == "y":
+                            word_entr = input("Please enter your new word here --> ")
+                            insert_tabelle = "INSERT INTO Words (Word, UserCreated) VALUES (%s,%s)"
+                            insert_value = (word_entr, login_data)
+                            my_cursor.execute(insert_tabelle, insert_value)
+                            connection.commit()     
 
-                        connection.commit()                    
-                    elif decision1 == "n" or "N":
-                        print("Returning to start")
+                        elif decision1 == "n":
+                            print("Returning to start")
+
+                    elif dcsn == "2":
+                        dcsn1 = input("You've decided to delete a word, is that correct? (y/n): ")
+                        if dcsn1 == "y":
+                            del_word = input("Please enter the Word you want to delete: ")
+                            insert_tabelle = "SELECT * FROM Words"
+                            my_cursor.execute(insert_tabelle)
+                            connection.commit()
+                            print(insert_tabelle)
+                            try:
+                                
+                                insert_tabelle = f"DELETE FROM Words WHERE Word = '{del_word}'"
+                                my_cursor.execute(insert_tabelle)
+                                connection.commit()
+                            except:
+                                print("Word not found, please make sure to not include any typing errors.")
 
                 elif input_option1 == "3":
                     decision2 = input("You've chosen to change your password. Is that correct? (y/n): ")
-                    if decision2 == "y" or "Y":
+                    if decision2 == "y":
                         password_old = input("In order to proceed, please enter your old password here --> ")
                         if password_old == passwd_entr:
                             new_pass = input("Please set your new password here --> ")
@@ -90,13 +108,13 @@ def main():
 
                                 my_cursor.execute(insert_tabelle)
                                 connection.commit()
-                    elif decision2 == "n" or "N":
+                    elif decision2 == "n":
                         print("Returning to start")
 
                 elif input_option1 == "4":
                     print("In order to change your username, you should be made aware that all of your entries will be replaced with the new user. ")
                     decision3 = input("Proceed? (y/n)")
-                    if decision3 == "y" or "Y":
+                    if decision3 == "y":
                         passwd_entr2 = input("Please enter your password here --> ")
                         if passwd_entr2 == passwd_entr:
                             new_name = input("Please enter your new username here --> ")
@@ -111,13 +129,13 @@ def main():
 
 
 
-                    elif decision3 == "n" or "N":
+                    elif decision3 == "n":
                         print("Returning to start")
 
                 elif input_option1 == "5":
                     print("Are you sure you want to delete your account and your entire information?")
                     del_acc = input("Proceed? (y/n): ")
-                    if del_acc == "y" or "Y":
+                    if del_acc == "y":
                         reqst = input("Please enter your username --> ")
                         reqst1 = input("Please enter your password --> ")
                         if reqst == login_data and reqst1 == passwd_entr:
@@ -130,7 +148,7 @@ def main():
                             connection.commit()
 
                             
-                    elif del_acc == "n" or "N":
+                    elif del_acc == "n":
                         print("Returning to start")
 
             else:
