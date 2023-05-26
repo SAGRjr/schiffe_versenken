@@ -121,9 +121,15 @@ def main():
                         reqst = input("Please enter your username --> ")
                         reqst1 = input("Please enter your password --> ")
                         if reqst == login_data and reqst1 == passwd_entr:
+                            insert_tabelle = f"DELETE FROM Words WHERE UserCreated = '{login_data}'"
+                            my_cursor.execute(insert_tabelle)
+                            connection.commit()
+                            time.sleep(0.5)
                             insert_tabelle = f"DELETE FROM Klassenkamerad WHERE Login = '{login_data}'"
                             my_cursor.execute(insert_tabelle)
                             connection.commit()
+
+                            
                     elif del_acc == "n" or "N":
                         print("Returning to start")
 
