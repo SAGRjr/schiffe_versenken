@@ -85,7 +85,7 @@ def main():
                             new_pass = input("Please set your new password here --> ")
                             new_pass1 = input("Please repeat your new password --> ")
                             if new_pass == new_pass1:
-                                print("Your password has been changed from ", '"',password_old,'"',  ' to ', '"',new_pass, '"')
+                                print("Your password has been changed from ", '"'+password_old+'"',  ' to ', '"'+new_pass+'"')
                                 insert_tabelle = f"UPDATE Klassenkamerad SET Password = '{new_pass1}' WHERE Login = '{login_data}'"
 
                                 my_cursor.execute(insert_tabelle)
@@ -97,7 +97,20 @@ def main():
                     print("In order to change your username, you should be made aware that all of your entries will be replaced with the new user. ")
                     decision3 = input("Proceed? (y/n)")
                     if decision3 == "y" or "Y":
-                        old_uname = input("Type your new username here --> ")
+                        passwd_entr2 = input("Please enter your password here --> ")
+                        if passwd_entr2 == passwd_entr:
+                            new_name = input("Please enter your new username here --> ")
+                            print("Your username has been changed from",'"'+login_data+'" to','"'+new_name+'"')
+                            insert_tabelle = f"UPDATE Words SET usercreated = '{new_name}' WHERE usercreated = '{login_data}'"
+                            my_cursor.execute(insert_tabelle)
+                            connection.commit()
+                            time.sleep(0.5)
+                            insert_tabelle = f"UPDATE Klassenkamerad SET Login = '{new_name}' WHERE Password = '{passwd_entr}'"
+                            my_cursor.execute(insert_tabelle)
+                            connection.commit()
+
+
+
                     elif decision3 == "n" or "N":
                         print("Returning to start")
 
