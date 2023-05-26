@@ -53,27 +53,33 @@ def main():
             bLoginOK = check_table_contents(result)
             if result[0] > 0:
                 print("Entry found.")
-                print("Welcome " + login_data + ", nice to see you. 😊")
+                print("Welcome " + login_data + ", nice to see you. ")
                 bLoginOK = True
 
                 input_option1 = input("Do you want to play (1), add a word (2), change your password (3), change your username (4) or delete your account (5)? ")
+
                 if input_option1 == "1":
-                    print("ok")
-                elif input_option1 == "2" :
-                    decision1 = input("You've decided to add a word, is that correct? Yes (y) or No (n): ")
-                    if decision1 == "y":
+                    decision4 = input("You've chosen to play. Proceed (y/n) ")
+                    if decision4 == "y" or "Y":
+                        print("Nothing here yet 💀")
+                    elif decision4 == "n" or "N":
+                        print("Nothing here either 👿")
+
+                elif input_option1 == "2":
+                    decision1 = input("You've decided to add a word, is that correct? (y/n): ")
+                    if decision1 == "y" or "Y":
                         word_entr = input("Please enter your new word here --> ")
                         insert_tabelle = "INSERT INTO Words (Word, UserCreated) VALUES (%s,%s)"
                         insert_value = (word_entr, login_data)
                         my_cursor.execute(insert_tabelle, insert_value)
 
-                        connection.commit()                     
-                    else:
-                        print("Bruh")
+                        connection.commit()                    
+                    elif decision1 == "n" or "N":
+                        print("Returning to start")
 
                 elif input_option1 == "3":
-                    decision2 = input("You've chosen to change your password. Is that correct? Yes (y) or No (n): ")
-                    if decision2 == "y":
+                    decision2 = input("You've chosen to change your password. Is that correct? (y/n): ")
+                    if decision2 == "y" or "Y":
                         password_old = input("In order to proceed, please enter your old password here --> ")
                         if password_old == passwd_entr:
                             new_pass = input("Please set your new password here --> ")
@@ -84,18 +90,29 @@ def main():
 
                                 my_cursor.execute(insert_tabelle)
                                 connection.commit()
+                    elif decision2 == "n" or "N":
+                        print("Returning to start")
+
                 elif input_option1 == "4":
-                    print("What is that supposed to mean mate?")
+                    print("In order to change your username, you should be made aware that all of your entries will be replaced with the new user. ")
+                    decision3 = input("Proceed? (y/n)")
+                    if decision3 == "y" or "Y":
+                        old_uname = input("Type your new username here --> ")
+                    elif decision3 == "n" or "N":
+                        print("Returning to start")
 
                 elif input_option1 == "5":
-                    del_acc = input("Are you sure you want to delete your account and your entire information? Proceed and close (y) or No and head back (n): ")
-                    if del_acc == "y":
+                    print("Are you sure you want to delete your account and your entire information?")
+                    del_acc = input("Proceed? (y/n): ")
+                    if del_acc == "y" or "Y":
                         reqst = input("Please enter your username --> ")
                         reqst1 = input("Please enter your password --> ")
                         if reqst == login_data and reqst1 == passwd_entr:
                             insert_tabelle = f"DELETE FROM Klassenkamerad WHERE Login = '{login_data}'"
                             my_cursor.execute(insert_tabelle)
                             connection.commit()
+                    elif del_acc == "n" or "N":
+                        print("Returning to start")
 
             else:
                 bLoginOK = False
