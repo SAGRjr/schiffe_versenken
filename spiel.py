@@ -231,7 +231,6 @@ def main():
                 bLoginOK = False
                 print("No entry found 💀💀💀")
                 print("Password or username might be wrong, please try again")
-                ladebalken()
                 main()
                 
             
