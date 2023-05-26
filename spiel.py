@@ -82,17 +82,26 @@ def main():
                     elif dcsn == "2":
                         dcsn1 = input("You've decided to delete a word, is that correct? (y/n): ")
                         if dcsn1 == "y":
+
                             del_word = input("Please enter the Word you want to delete: ")
-                            insert_tabelle = "SELECT * FROM Words"
+                            insert_tabelle = f"SELECT Word FROM Words WHERE Word = '{del_word}'"
                             my_cursor.execute(insert_tabelle)
-                            connection.commit()
-                            print(insert_tabelle)
-                            try:
-                                
-                                insert_tabelle = f"DELETE FROM Words WHERE Word = '{del_word}'"
+                            result = my_cursor.fetchone()
+                            time.sleep(0.2)
+                            
+
+                            if result is not None:
+                                insert_tabelle = f"SELECT UserCreated FROM Words WHERE UserCreated = '{login_data}'"
                                 my_cursor.execute(insert_tabelle)
-                                connection.commit()
-                            except:
+                                result = my_cursor.fetchone()
+                                if result is not None:
+
+                                    insert_tabelle = f"DELETE FROM Words WHERE Word = '{del_word}'"
+                                    my_cursor.execute(insert_tabelle)
+                                    connection.commit()
+                                else:
+                                    print("Word not found, please make sure to not include any typing errors.")
+                            else:
                                 print("Word not found, please make sure to not include any typing errors.")
 
                 elif input_option1 == "3":
@@ -112,7 +121,7 @@ def main():
                         print("Returning to start")
 
                 elif input_option1 == "4":
-                    print("In order to change your username, you should be made aware that all of your entries will be replaced with the new user. ")
+                    # print("In order to change your username, you should be made aware that all of your entries will be replaced with the new user. ")
                     decision3 = input("Proceed? (y/n)")
                     if decision3 == "y":
                         passwd_entr2 = input("Please enter your password here --> ")
